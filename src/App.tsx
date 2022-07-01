@@ -1,29 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import {apiPlaceHolder, getPlaceHolderObjectType} from './api/apiPlaceHolder';
 
-type getPlaceHolderObjectType = {
-  'userId': number
-  'id': number
-  'title': string
-  'body': string
-}
 
 function App() {
 
   const [posts, setPosts] = useState<getPlaceHolderObjectType[]>([]);
 
-  const getPlaceHolderAPI = async () => {
-    const result = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const data = await result.json();
-    setPosts(data);
-  }
+  // const getPlaceHolderAPI = async () => {
+  //   const result = await fetch('https://jsonplaceholder.typicode.com/posts');
+  //   const data = await result.json();
+  //   setPosts(data);
+  // }
 
   useEffect(() => {
-    getPlaceHolderAPI()
+    apiPlaceHolder.get()
+        .then(res => {
+          setPosts(res.data)
+        })
   }, [])
 
   return (
       <div className="App">
+        <h1>Second version</h1>
         {posts.map(element => {
           return (
               <div key={element.id}>
