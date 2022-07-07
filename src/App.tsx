@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import './App.css';
-import {apiPlaceHolder, getPlaceHolderObjectType} from './api/apiPlaceHolder';
+import {apiPlaceHolder, getPlaceHolderObjectType, instance} from './api/apiPlaceHolder';
+import {getAC, JsonPlaceHolderReducer} from './reduser/JsonPlaceHolderReducer';
 
 
 function App() {
 
-  const [posts, setPosts] = useState<getPlaceHolderObjectType[]>([]);
+  const [posts, dispatchPosts] = useReducer(JsonPlaceHolderReducer, []);
 
   // const getPlaceHolderAPI = async () => {
   //   const result = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -16,7 +17,7 @@ function App() {
   useEffect(() => {
     apiPlaceHolder.get()
         .then(res => {
-          setPosts(res.data)
+            dispatchPosts(getAC(res.data))
         })
   }, [])
 
