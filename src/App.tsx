@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {apiPlaceHolder, getPlaceHolderObjectType} from './api/apiPlaceHolder';
+import {apiPlaceHolder, getPlaceHolderObjectType, instance} from './api/apiPlaceHolder';
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     apiPlaceHolder.get()
         .then(res => {
-          setPosts(res.data)
+            setPosts(res.data)
         })
   }, [])
 
